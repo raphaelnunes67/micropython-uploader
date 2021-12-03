@@ -1,4 +1,5 @@
 import sys, glob, serial
+from serial.tools import list_ports
 
 class PortReader:
   
@@ -32,8 +33,23 @@ class PortReader:
                 result.append(port)
             except (OSError, serial.SerialException):
                 pass
+        
+        for port in list_ports.comports():
+            print(port.manufacturer)
+            print(port.device)
+        
         return result
-
+    
+    @staticmethod
+    def serial_ports_info() -> list:
+        devices = []
+        for port in list_ports.comports():
+            # print(port.manufacturer)
+            # print(port.device)
+            device = port.device + " - " + port.manufacturer
+            devices.append(device)
+        
+        return devices
 
 if __name__ == '__main__':
-    print(PortReader.serial_ports())
+    print(PortReader.serial_ports_info())

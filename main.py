@@ -10,16 +10,18 @@ class MicroPythoUploader:
     def createWindow() -> None:
         import PySimpleGUI as psg
         portReader = PortReader()
-        connecterd_ports = portReader.serial_ports()
+        devices = portReader.serial_ports_info()
+        print(devices)
         
         psg.theme('Dark Blue 3')
         layout = [
           [psg.Text('Connected Ports')],
-          [psg.Listbox(values=(connecterd_ports), size=(30, 3))],
+          [psg.InputCombo(values=(devices), size=(32, 5))],
+          [psg.Text('Your Folder', size=(15, 1), auto_size_text=False, justification='left')],
+          [psg.InputText(), psg.FileBrowse()],
           [psg.OK(), psg.Cancel()]
           ]
-
-        window = psg.Window('Get filename example', layout)
+        window = psg.Window('Micropython Uploader', layout)
         event, values = window.read()
 
         window.close()
