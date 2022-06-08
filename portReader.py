@@ -9,7 +9,6 @@ class PortReader:
     @staticmethod
     def serial_ports() -> list:
         """ Lists serial port names
-
             :raises EnvironmentError:
                 On unsupported or unknown platforms
             :returns:
@@ -46,9 +45,10 @@ class PortReader:
         for port in list_ports.comports():
             # print(port.manufacturer)
             # print(port.device)
-            device = port.device + " - " + port.manufacturer
+          
+            device = str(port.device) + " - " + str(port.manufacturer)
             devices.append(device)
-        
+            
         return devices
 
 if __name__ == '__main__':
